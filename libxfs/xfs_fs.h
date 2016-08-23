@@ -567,7 +567,8 @@ struct xfs_scrub_metadata {
 #define XFS_SCRUB_TYPE_CNTBT	5	/* freesp by length btree */
 #define XFS_SCRUB_TYPE_INOBT	6	/* inode btree */
 #define XFS_SCRUB_TYPE_FINOBT	7	/* free inode btree */
-#define XFS_SCRUB_TYPE_MAX	7
+#define XFS_SCRUB_TYPE_RMAPBT	8	/* reverse mapping btree */
+#define XFS_SCRUB_TYPE_MAX	8
 
 #define XFS_SCRUB_FLAGS_ALL	0x0	/* no flags yet */
 
