@@ -142,5 +142,6 @@
 #define xfs_refcount_get_rec		libxfs_refcount_get_rec
 #define xfs_rmap_lookup_le_range	libxfs_rmap_lookup_le_range
 #define xfs_refc_block			libxfs_refc_block
+#define xfs_rtrmapbt_maxrecs		libxfs_rtrmapbt_maxrecs
 
 #endif /* __LIBXFS_API_DEFS_H__ */
