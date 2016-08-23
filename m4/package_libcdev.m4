@@ -245,6 +245,45 @@ AC_DEFUN([AC_HAVE_FSETXATTR],
   ])
 
 #
+# Check if we have a fgetxattr call (Mac OS X)
+#
+AC_DEFUN([AC_HAVE_FGETXATTR],
+  [ AC_CHECK_DECL([fgetxattr],
+       have_fgetxattr=yes,
+       [],
+       [#include <sys/types.h>
+        #include <attr/xattr.h>]
+       )
+    AC_SUBST(have_fgetxattr)
+  ])
+
+#
+# Check if we have a flistxattr call (Mac OS X)
+#
+AC_DEFUN([AC_HAVE_FLISTXATTR],
+  [ AC_CHECK_DECL([flistxattr],
+       have_flistxattr=yes,
+       [],
+       [#include <sys/types.h>
+        #include <attr/xattr.h>]
+       )
+    AC_SUBST(have_flistxattr)
+  ])
+
+#
+# Check if we have a llistxattr call (Mac OS X)
+#
+AC_DEFUN([AC_HAVE_LLISTXATTR],
+  [ AC_CHECK_DECL([llistxattr],
+       have_llistxattr=yes,
+       [],
+       [#include <sys/types.h>
+        #include <attr/xattr.h>]
+       )
+    AC_SUBST(have_llistxattr)
+  ])
+
+#
 # Check if there is mntent.h
 #
 AC_DEFUN([AC_HAVE_MNTENT],
@@ -290,4 +329,91 @@ AC_DEFUN([AC_HAVE_FSXATTR_COWEXTSIZE],
       )
     ])
     AC_SUBST(have_fsxattr_cowextsize)
+  ])
+
+#
+# Check if we have a mallinfo libc call
+#
+AC_DEFUN([AC_HAVE_MALLINFO],
+  [ AC_MSG_CHECKING([for mallinfo ])
+    AC_TRY_COMPILE([
+#include <malloc.h>
+    ], [
+         struct mallinfo test;
+
+         test.arena = 0; test.hblkhd = 0; test.uordblks = 0; test.fordblks = 0;
+         test = mallinfo();
+    ], have_mallinfo=yes
+       AC_MSG_RESULT(yes),
+       AC_MSG_RESULT(no))
+    AC_SUBST(have_mallinfo)
+  ])
+
+#
+# Check if we have the SG_IO ioctl
+#
+AC_DEFUN([AC_HAVE_SG_IO],
+  [ AC_MSG_CHECKING([for struct sg_io_hdr ])
+    AC_TRY_COMPILE([#include <scsi/sg.h>],
+    [
+         struct sg_io_hdr hdr;
+         ioctl(0, SG_IO, &hdr);
+    ], have_sg_io=yes
+       AC_MSG_RESULT(yes),
+       AC_MSG_RESULT(no))
+    AC_SUBST(have_sg_io)
+  ])
+
+#
+# Check if we have the HDIO_GETGEO ioctl
+#
+AC_DEFUN([AC_HAVE_HDIO_GETGEO],
+  [ AC_MSG_CHECKING([for struct hd_geometry ])
+    AC_TRY_COMPILE([#include <linux/hdreg.h>],
+    [
+         struct hd_geometry hdr;
+         ioctl(0, HDIO_GETGEO, &hdr);
+    ], have_hdio_getgeo=yes
+       AC_MSG_RESULT(yes),
+       AC_MSG_RESULT(no))
+    AC_SUBST(have_hdio_getgeo)
+  ])
+
+#
+# Check if we have a openat call
+#
+AC_DEFUN([AC_HAVE_OPENAT],
+  [ AC_CHECK_DECL([openat],
+       have_openat=yes,
+       [],
+       [#include <sys/types.h>
+        #include <sys/stat.h>
+        #include <fcntl.h>]
+       )
+    AC_SUBST(have_openat)
+  ])
+
+#
+# Check if we have a readlinkat call
+#
+AC_DEFUN([AC_HAVE_READLINKAT],
+  [ AC_CHECK_DECL([readlinkat],
+       have_readlinkat=yes,
+       [],
+       [#include <unistd.h>
+        #include <fcntl.h>]
+       )
+    AC_SUBST(have_readlinkat)
+  ])
+
+#
+# Check if we have a syncfs call
+#
+AC_DEFUN([AC_HAVE_SYNCFS],
+  [ AC_CHECK_DECL([syncfs],
+       have_syncfs=yes,
+       [],
+       [#define _GNU_SOURCE
+       #include <unistd.h>])
+    AC_SUBST(have_syncfs)
   ])

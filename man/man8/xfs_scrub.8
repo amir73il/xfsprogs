@@ -1,0 +1,127 @@
+.TH xfs_scrub 8
+.SH NAME
+xfs_scrub \- scrub the contents of an XFS filesystem
+.SH SYNOPSIS
+.B xfs_scrub
+[
+.B \-ademntTvVxy
+]
+.I mountpoint
+.br
+.B xfs_scrub \-V
+.SH DESCRIPTION
+.B xfs_scrub
+attempts to read and check all the metadata in a Linux filesystem.
+.PP
+If
+.B xfs_scrub
+does not detect an XFS filesystem, it will use a generic backend to
+scrub the filesystem.
+This involves walking the directory tree, querying the data and
+extended attribute extent maps, performing limited checks of directory
+and inode data, reading all of an inode's extended attributes,
+optionally reading all data in a file, and comparing the number of
+blocks and inodes seen against the reported counters.
+.PP
+If an XFS filesystem is detected, then
+.B xfs_scrub
+will ask the kernel to perform more rigorous scrubbing of the
+internal metadata.
+The in-kernel scrubbers also cross-reference each data structure's
+records against the other filesystem metadata.
+.PP
+This utility does not know how to correct all errors.
+If the tool cannot fix the detected errors, you must unmount the
+filesystem and run the appropriate repair tool.
+if this tool is run without either of the
+.B \-n
+or
+.B \-y
+options, then it will preen and optimize the filesystem when possible,
+though it will not try to fix errors.
+.SH OPTIONS
+.TP
+.BI \-a " errors"
+Abort if more than this many errors are found on the filesystem.
+.TP
+.B \-d
+Enable debugging mode, which augments error reports with the exact file
+and line where the scrub failure occurred.
+This also enables verbose mode.
+.TP
+.B \-e
+Specifies what happens when errors are detected.
+If
+.IR shutdown
+is given, the filesystem will be taken offline if errors are found.
+Not all backends can shut down a filesystem.
+If
+.IR continue
+is given, no action taken if errors are found.
+This is the default.
+.TP
+.BI \-m " file"
+Search this file for mounted filesystems instead of /etc/mtab.
+.TP
+.B \-n
+Dry run, do not modify anything in the filesystem.  This disables
+all preening and optimization behaviors, and disables calling
+FITRIM on the free space after a successful run.
+.TP
+.BI \-t " fstype"
+Force the use of a particular type of filesystem scrubber.
+The current backends are:
+.IR xfs , " ext4" , " ext3", " ext2", " btrfs" ", and " generic "."
+Most filesystems will work just fine with the generic backend.
+.TP
+.BI \-T
+Print timing and memory usage information for each phase.
+.TP
+.B \-v
+Enable verbose mode, which prints periodic status updates.
+.TP
+.B \-V
+Prints the version number and exits.
+.TP
+.B \-x
+Scrub file data.  This reads every block of every file on disk.
+If the filesystem reports file extent mappings or physical extent
+mappings and is backed by a block device,
+.TP
+.B \-y
+Try to repair all filesystem errors.  If the errors cannot be fixed
+online, then the filesystem must be taken offline for repair.
+.B xfs_scrub
+will issue O_DIRECT reads to the block device directly.
+If the block device is a SCSI disk, it will issue READ VERIFY commands
+directly to the disk.
+.SH EXIT CODE
+The exit code returned by
+.B xfs_scrub
+is the sum of the following conditions:
+.br
+\	0\	\-\ No errors
+.br
+\	4\	\-\ File system errors left uncorrected
+.br
+\	8\	\-\ Operational error
+.br
+\	16\	\-\ Usage or syntax error
+.br
+.SH CAVEATS
+.B xfs_scrub
+is an immature utility!
+The generic scrub backend walks the directory tree, reads file extents
+and data, and queries every extended attribute it can find.
+The generic scrub does not grab exclusive locks on the objects it is
+examining, nor does it have any way to cross-reference what it sees
+against the internal filesystem metadata.
+.PP
+The XFS backend takes advantage of in-kernel scrubbing to verify a
+given data structure with locks held.
+This can tie up the system for a while.
+.PP
+If errors are found, the filesystem should be taken offline and
+repaired.
+.SH SEE ALSO
+.BR xfs_repair (8).
