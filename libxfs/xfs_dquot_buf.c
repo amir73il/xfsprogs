@@ -37,11 +37,8 @@ int
 xfs_calc_dquots_per_chunk(
 	unsigned int		nbblks)	/* basic block units */
 {
-
-	ASSERT(nbblks > 0);
-	return BBTOB(nbblks) / sizeof(xfs_dqblk_t);
-
-#if 0	/* kernel code that goes wrong in userspace! */
+#ifdef __KERNEL__
+	/* kernel code that goes wrong in userspace! */
 	unsigned int	ndquots;
 
 	ASSERT(nbblks > 0);
@@ -49,6 +46,9 @@ xfs_calc_dquots_per_chunk(
 	do_div(ndquots, sizeof(xfs_dqblk_t));
 
 	return ndquots;
+#else
+	ASSERT(nbblks > 0);
+	return BBTOB(nbblks) / sizeof(xfs_dqblk_t);
 #endif
 }
 

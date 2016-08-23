@@ -376,7 +376,7 @@ xfs_log_dinode_to_disk(
 	}
 }
 
-bool
+static bool
 xfs_dinode_verify(
 	struct xfs_mount	*mp,
 	xfs_ino_t		ino,
@@ -515,7 +515,6 @@ xfs_iread(
 	}
 
 	ASSERT(ip->i_d.di_version >= 2);
-
 	ip->i_delayed_blks = 0;
 
 	/*
