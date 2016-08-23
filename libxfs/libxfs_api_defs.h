@@ -143,5 +143,6 @@
 #define xfs_rmap_lookup_le_range	libxfs_rmap_lookup_le_range
 #define xfs_refc_block			libxfs_refc_block
 #define xfs_rtrmapbt_maxrecs		libxfs_rtrmapbt_maxrecs
+#define xfs_rtrmapbt_init_cursor	libxfs_rtrmapbt_init_cursor
 
 #endif /* __LIBXFS_API_DEFS_H__ */
