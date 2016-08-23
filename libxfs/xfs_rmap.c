@@ -2203,11 +2203,13 @@ __xfs_rmap_add(
 	enum xfs_rmap_intent_type	type,
 	__uint64_t			owner,
 	int				whichfork,
-	struct xfs_bmbt_irec		*bmap)
+	struct xfs_bmbt_irec		*bmap,
+	bool				realtime)
 {
 	struct xfs_rmap_intent	*ri;
 
-	trace_xfs_rmap_defer(mp, XFS_FSB_TO_AGNO(mp, bmap->br_startblock),
+	trace_xfs_rmap_defer(mp, realtime ? NULLAGNUMBER :
+			XFS_FSB_TO_AGNO(mp, bmap->br_startblock),
 			type,
 			XFS_FSB_TO_AGBNO(mp, bmap->br_startblock),
 			owner, whichfork,
@@ -2221,6 +2223,7 @@ __xfs_rmap_add(
 	ri->ri_owner = owner;
 	ri->ri_whichfork = whichfork;
 	ri->ri_bmap = *bmap;
+	ri->ri_realtime = realtime;
 
 	xfs_defer_add(dfops, XFS_DEFER_OPS_TYPE_RMAP, &ri->ri_list);
 	return 0;
@@ -2240,7 +2243,7 @@ xfs_rmap_map_extent(
 
 	return __xfs_rmap_add(mp, dfops, xfs_is_reflink_inode(ip) ?
 			XFS_RMAP_MAP_SHARED : XFS_RMAP_MAP, ip->i_ino,
-			whichfork, PREV);
+			whichfork, PREV, XFS_IS_REALTIME_INODE(ip));
 }
 
 /* Unmap an extent out of a file. */
@@ -2257,7 +2260,7 @@ xfs_rmap_unmap_extent(
 
 	return __xfs_rmap_add(mp, dfops, xfs_is_reflink_inode(ip) ?
 			XFS_RMAP_UNMAP_SHARED : XFS_RMAP_UNMAP, ip->i_ino,
-			whichfork, PREV);
+			whichfork, PREV, XFS_IS_REALTIME_INODE(ip));
 }
 
 /* Convert a data fork extent from unwritten to real or vice versa. */
@@ -2274,7 +2277,7 @@ xfs_rmap_convert_extent(
 
 	return __xfs_rmap_add(mp, dfops, xfs_is_reflink_inode(ip) ?
 			XFS_RMAP_CONVERT_SHARED : XFS_RMAP_CONVERT, ip->i_ino,
-			whichfork, PREV);
+			whichfork, PREV, XFS_IS_REALTIME_INODE(ip));
 }
 
 /* Schedule the creation of an rmap for non-file data. */
@@ -2298,7 +2301,7 @@ xfs_rmap_alloc_extent(
 	bmap.br_state = XFS_EXT_NORM;
 
 	return __xfs_rmap_add(mp, dfops, XFS_RMAP_ALLOC, owner,
-			XFS_DATA_FORK, &bmap);
+			XFS_DATA_FORK, &bmap, false);
 }
 
 /* Schedule the deletion of an rmap for non-file data. */
@@ -2322,7 +2325,7 @@ xfs_rmap_free_extent(
 	bmap.br_state = XFS_EXT_NORM;
 
 	return __xfs_rmap_add(mp, dfops, XFS_RMAP_FREE, owner,
-			XFS_DATA_FORK, &bmap);
+			XFS_DATA_FORK, &bmap, false);
 }
 
 /* Is there a record covering a given extent? */
