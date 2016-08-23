@@ -609,7 +609,8 @@ struct xfs_scrub_metadata {
 #define XFS_SCRUB_TYPE_SYMLINK	17	/* symbolic link */
 #define XFS_SCRUB_TYPE_RTBITMAP	18	/* realtime bitmap */
 #define XFS_SCRUB_TYPE_RTSUM	19	/* realtime summary */
-#define XFS_SCRUB_TYPE_MAX	19
+#define XFS_SCRUB_TYPE_RTRMAPBT	20	/* realtime reverse mapping btree */
+#define XFS_SCRUB_TYPE_MAX	20
 
 #define XFS_SCRUB_FLAG_REPAIR	0x1	/* i: repair this metadata */
 #define XFS_SCRUB_FLAG_CORRUPT	0x2	/* o: needs repair */
