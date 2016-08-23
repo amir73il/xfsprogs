@@ -575,7 +575,8 @@ struct xfs_scrub_metadata {
 #define XFS_SCRUB_TYPE_BMBTC	13	/* CoW fork block mapping */
 #define XFS_SCRUB_TYPE_RTBITMAP	14	/* realtime bitmap */
 #define XFS_SCRUB_TYPE_RTSUM	15	/* realtime summary */
-#define XFS_SCRUB_TYPE_MAX	15
+#define XFS_SCRUB_TYPE_RTRMAPBT	16	/* realtime reverse mapping btree */
+#define XFS_SCRUB_TYPE_MAX	16
 
 #define XFS_SCRUB_FLAGS_ALL	0x0	/* no flags yet */
 
