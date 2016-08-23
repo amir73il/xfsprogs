@@ -64,4 +64,7 @@ extern int xfs_refcount_free_cow_extent(struct xfs_mount *mp,
 		struct xfs_defer_ops *dfops, xfs_fsblock_t fsb,
 		xfs_extlen_t len);
 
+extern int xfs_refcount_has_record(struct xfs_btree_cur *cur,
+		xfs_agblock_t bno, xfs_extlen_t len, bool *exists);
+
 #endif	/* __XFS_REFCOUNT_H__ */
