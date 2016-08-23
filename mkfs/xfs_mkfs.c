@@ -2141,13 +2141,6 @@ _("reflink not supported without CRC support\n"));
 	}
 
 
-	if (sb_feat.rmapbt && xi.rtname) {
-		fprintf(stderr,
-_("rmapbt not supported with realtime devices\n"));
-		usage();
-		sb_feat.rmapbt = false;
-	}
-
 	if (nsflag || nlflag) {
 		if (dirblocksize < blocksize ||
 					dirblocksize > XFS_MAX_BLOCKSIZE) {
@@ -2905,6 +2898,18 @@ _("size %s specified for log subvolume is too large, maximum is %lld blocks\n"),
 	if (mp == NULL) {
 		fprintf(stderr, _("%s: filesystem failed to initialize\n"),
 			progname);
+		exit(1);
+	}
+
+	/* The realtime rmapbt mustn't grow taller than max btree height. */
+	if (xfs_sb_version_hasrtrmapbt(&mp->m_sb) &&
+	    libxfs_btree_compute_maxlevels(mp, mp->m_rtrmap_mnr,
+			mp->m_sb.sb_rblocks) > XFS_BTREE_MAXLEVELS) {
+		fprintf(stderr,
+_("%s: max realtime rmapbt height (%d) exceeds configured maximum (%d)\n"),
+			progname, libxfs_btree_compute_maxlevels(mp,
+			mp->m_rtrmap_mnr, mp->m_sb.sb_rblocks),
+			XFS_BTREE_MAXLEVELS);
 		exit(1);
 	}
 
