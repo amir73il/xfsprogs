@@ -686,6 +686,7 @@ struct xfs_phys_extent {
 };
 
 /* refcount pe_flags: upper bits are flags, lower byte is type code */
+/* Type codes must correspond to enum xfs_refcount_intent_type. */
 #define XFS_REFCOUNT_EXTENT_INCREASE	1
 #define XFS_REFCOUNT_EXTENT_DECREASE	2
 #define XFS_REFCOUNT_EXTENT_ALLOC_COW	3
