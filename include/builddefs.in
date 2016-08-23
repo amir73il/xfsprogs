@@ -108,9 +108,20 @@ HAVE_READDIR = @have_readdir@
 HAVE_MNTENT = @have_mntent@
 HAVE_FLS = @have_fls@
 HAVE_FSETXATTR = @have_fsetxattr@
+HAVE_FGETXATTR = @have_fgetxattr@
+HAVE_FLISTXATTR = @have_flistxattr@
+HAVE_LLISTXATTR = @have_llistxattr@
 HAVE_MREMAP = @have_mremap@
 HAVE_FSXATTR_COWEXTSIZE = @have_fsxattr_cowextsize@
 ENABLE_INTERNAL_FSXATTR = @enable_internal_fsxattr@
+HAVE_MALLINFO = @have_mallinfo@
+HAVE_SG_IO = @have_sg_io@
+HAVE_ATTRIBUTES_H = @have_attributes_h@
+HAVE_ATTRIBUTES_MACROS = @have_attributes_macros@
+HAVE_ATTRIBUTES_STRUCTS = @have_attributes_structs@
+HAVE_OPENAT = @have_openat@
+HAVE_READLINKAT = @have_readlinkat@
+HAVE_SYNCFS = @have_syncfs@
 
 GCCFLAGS = -funsigned-char -fno-strict-aliasing -Wall
 #	   -Wbitwise -Wno-transparent-union -Wno-old-initializer -Wno-decl
