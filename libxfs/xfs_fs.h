@@ -560,7 +560,9 @@ struct xfs_scrub_metadata {
  * Metadata types and flags for scrub operation.
  */
 #define XFS_SCRUB_TYPE_SB	0	/* superblock */
-#define XFS_SCRUB_TYPE_MAX	0
+#define XFS_SCRUB_TYPE_AGF	1	/* AG free header */
+#define XFS_SCRUB_TYPE_AGFL	2	/* AG free list */
+#define XFS_SCRUB_TYPE_MAX	2
 
 #define XFS_SCRUB_FLAGS_ALL	0x0	/* no flags yet */
 
