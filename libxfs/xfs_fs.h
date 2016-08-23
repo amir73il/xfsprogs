@@ -548,6 +548,21 @@ typedef struct xfs_swapext
 #define XFS_FSOP_GOING_FLAGS_LOGFLUSH		0x1	/* flush log but not data */
 #define XFS_FSOP_GOING_FLAGS_NOLOGFLUSH		0x2	/* don't flush log nor data */
 
+/* metadata scrubbing */
+struct xfs_scrub_metadata {
+	__u32 type;		/* What to check? */
+	__u32 flags;		/* Flags; none defined right now. */
+	__u64 control;		/* AG or inode number */
+	__u64 reserved[6];	/* Must be zero. */
+};
+
+/*
+ * Metadata types and flags for scrub operation.
+ */
+#define XFS_SCRUB_TYPE_MAX	0
+
+#define XFS_SCRUB_FLAGS_ALL	0x0	/* no flags yet */
+
 /*
  * ioctl limits
  */
@@ -588,6 +603,7 @@ typedef struct xfs_swapext
 #define XFS_IOC_ZERO_RANGE	_IOW ('X', 57, struct xfs_flock64)
 #define XFS_IOC_FREE_EOFBLOCKS	_IOR ('X', 58, struct xfs_fs_eofblocks)
 #define XFS_IOC_GETFSMAP	_IOWR('X', 59, struct getfsmap)
+#define XFS_IOC_SCRUB_METADATA	_IOR ('X', 60, struct xfs_scrub_metadata)
 
 /*
  * ioctl commands that replace IRIX syssgi()'s
