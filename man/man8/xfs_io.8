@@ -931,6 +931,14 @@ verbose output will be printed.
 .IP
 .B [NOTE: Not currently operational on Linux.]
 .PD
+.TP
+.BI "scrub " type " [ " agnumber... " ]"
+Scrub internal XFS filesystem metadata.  The
+.BI type
+parameter specifies which type of metadata to scrub.
+AG numbers can optionally be specified to restrict the scrub operation
+to a particular set of allocation groups.
+By default, all allocation groups are scrubbed.
 
 .SH SEE ALSO
 .BR mkfs.xfs (8),

@@ -176,3 +176,6 @@ extern void		cowextsize_init(void);
 #else
 #define cowextsize_init()	do { } while (0)
 #endif
+
+extern void		scrub_init(void);
+extern void		repair_init(void);

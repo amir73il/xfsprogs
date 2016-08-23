@@ -87,6 +87,8 @@ init_commands(void)
 	truncate_init();
 	reflink_init();
 	cowextsize_init();
+	scrub_init();
+	repair_init();
 }
 
 static int
