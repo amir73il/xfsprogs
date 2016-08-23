@@ -570,7 +570,10 @@ struct xfs_scrub_metadata {
 #define XFS_SCRUB_TYPE_RMAPBT	8	/* reverse mapping btree */
 #define XFS_SCRUB_TYPE_REFCNTBT	9	/* reference count btree */
 #define XFS_SCRUB_TYPE_INODE	10	/* inode record */
-#define XFS_SCRUB_TYPE_MAX	10
+#define XFS_SCRUB_TYPE_BMBTD	11	/* data fork block mapping */
+#define XFS_SCRUB_TYPE_BMBTA	12	/* attr fork block mapping */
+#define XFS_SCRUB_TYPE_BMBTC	13	/* CoW fork block mapping */
+#define XFS_SCRUB_TYPE_MAX	13
 
 #define XFS_SCRUB_FLAGS_ALL	0x0	/* no flags yet */
 
