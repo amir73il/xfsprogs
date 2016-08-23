@@ -192,6 +192,13 @@ xfs_iformat_fork(
 		case XFS_DINODE_FMT_BTREE:
 			error = xfs_iformat_btree(ip, dip, XFS_DATA_FORK);
 			break;
+		case XFS_DINODE_FMT_RMAP:
+			if (!xfs_sb_version_hasrtrmapbt(&ip->i_mount->m_sb))
+				return -EFSCORRUPTED;
+			if (ip->i_ino != ip->i_mount->m_sb.sb_rrmapino)
+				return -EFSCORRUPTED;
+			/* to be implemented later */
+			break;
 		default:
 			XFS_ERROR_REPORT("xfs_iformat(6)", XFS_ERRLEVEL_LOW,
 					 ip->i_mount);
@@ -792,6 +799,10 @@ xfs_iflush_fork(
 			       &ip->i_df.if_u2.if_uuid,
 			       sizeof(uuid_t));
 		}
+		break;
+
+	case XFS_DINODE_FMT_RMAP:
+		/* to be implemented later */
 		break;
 
 	default:

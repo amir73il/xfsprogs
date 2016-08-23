@@ -352,7 +352,7 @@ xfs_rtrmapbt_verify(
 
 	if (!xfs_sb_version_hasrmapbt(&mp->m_sb))
 		return false;
-	if (!xfs_btree_lblock_v5hdr_verify(bp, XFS_RMAP_OWN_UNKNOWN))
+	if (!xfs_btree_lblock_v5hdr_verify(bp, mp->m_sb.sb_rrmapino))
 		return false;
 	level = be16_to_cpu(block->bb_level);
 	if (level > mp->m_rtrmap_maxlevels)
