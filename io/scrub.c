@@ -54,6 +54,7 @@ static const struct scrub_descr scrubbers[] = {
 	{"symlink",	false},
 	{"rtbitmap",	false},
 	{"rtsummary",	false},
+	{"rtrmapbt",	false},
 	{NULL, false},
 };
 
