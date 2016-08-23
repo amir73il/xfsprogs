@@ -563,7 +563,9 @@ struct xfs_scrub_metadata {
 #define XFS_SCRUB_TYPE_AGF	1	/* AG free header */
 #define XFS_SCRUB_TYPE_AGFL	2	/* AG free list */
 #define XFS_SCRUB_TYPE_AGI	3	/* AG inode header */
-#define XFS_SCRUB_TYPE_MAX	3
+#define XFS_SCRUB_TYPE_BNOBT	4	/* freesp by block btree */
+#define XFS_SCRUB_TYPE_CNTBT	5	/* freesp by length btree */
+#define XFS_SCRUB_TYPE_MAX	5
 
 #define XFS_SCRUB_FLAGS_ALL	0x0	/* no flags yet */
 
