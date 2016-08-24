@@ -316,7 +316,7 @@ fold_raw_rmaps(
 	struct xfs_slab_cursor	*cur = NULL;
 	struct xfs_rmap_irec	*prev, *rec;
 	size_t			old_sz;
-	int			error;
+	int			error = 0;
 
 	old_sz = slab_count(ag_rmaps[agno].ar_rmaps);
 	if (slab_count(ag_rmaps[agno].ar_raw_rmaps) == 0)
@@ -329,7 +329,7 @@ fold_raw_rmaps(
 
 	prev = pop_slab_cursor(cur);
 	rec = pop_slab_cursor(cur);
-	while (rec) {
+	while (prev && rec) {
 		if (mergeable_rmaps(prev, rec)) {
 			prev->rm_blockcount += rec->rm_blockcount;
 			rec = pop_slab_cursor(cur);
@@ -843,6 +843,7 @@ rmap_high_key_from_rec(
 	    (rec->rm_flags & XFS_RMAP_BMBT_BLOCK))
 		return;
 	key->rm_offset += adj;
+	key->rm_blockcount = 0;
 }
 
 /*

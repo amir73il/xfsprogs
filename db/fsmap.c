@@ -75,6 +75,7 @@ fsmap(
 	high.rm_owner = ULLONG_MAX;
 	high.rm_offset = ULLONG_MAX;
 	high.rm_flags = XFS_RMAP_ATTR_FORK | XFS_RMAP_BMBT_BLOCK | XFS_RMAP_UNWRITTEN;
+	high.rm_blockcount = low.rm_blockcount = 0;
 
 	start_ag = XFS_FSB_TO_AGNO(mp, start_fsb);
 	end_ag = XFS_FSB_TO_AGNO(mp, end_fsb);
