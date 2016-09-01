@@ -465,6 +465,15 @@ xfs_dummy_verify(
 }
 
 void
+xfs_verify_recalc_inode_crc(
+	struct xfs_buf *bp)
+{
+	ASSERT(iocur_top->ino_buf);
+	libxfs_dinode_calc_crc(mp, iocur_top->data);
+	iocur_top->ino_crc_ok = 1;
+}
+
+void
 xfs_verify_recalc_crc(
 	struct xfs_buf *bp)
 {
