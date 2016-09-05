@@ -454,6 +454,13 @@ struct fsxattr {
 
 #endif
 
+#ifndef FS_XFLAG_REFLINK
+#define FS_XFLAG_REFLINK	0x00010000	/* file is reflinked */
+#endif
+
+#ifndef FS_XFLAG_COWEXTSIZE
+#define FS_XFLAG_COWEXTSIZE	0x00020000	/* CoW extent size allocator hint */
+#endif
 
 /**
  * Abstraction of mountpoints.
