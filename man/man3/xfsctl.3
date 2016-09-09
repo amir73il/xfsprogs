@@ -230,6 +230,16 @@ If the filesystem lives on directly accessible persistent memory, reads and
 writes to this file will go straight to the persistent memory, bypassing the
 page cache.
 .TP
+.SM "Bit 16 (0x10000) \- XFS_XFLAG_REFLINK"
+This file is sharing or has shared blocks with another file.
+This flag can be set by reflinking or deduping blocks with another file
+and cleared by fallocating the entire file to pre-copy all shared extents.
+A file cannot have
+.BR XFS_XFLAG_REFLINK
+and
+.BR XFS_XFLAG_DAX
+set at the same time, that is to say that DAX files cannot share blocks.
+.TP
 .SM "Bit 31 (0x80000000) \- XFS_XFLAG_HASATTR"
 The file has extended attributes associated with it.
 .RE
