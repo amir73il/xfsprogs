@@ -373,6 +373,7 @@ static const struct scrub_descr scrubbers[] = {
 	{"symbolic link",			ST_INODE},
 	{"realtime bitmap",			ST_FS},
 	{"realtime summary",			ST_FS},
+	{"realtime reverse mapping btree",	ST_FS},
 };
 
 /* Format a scrub description. */
