@@ -24,6 +24,9 @@ extern int xfs_refcount_lookup_le(struct xfs_btree_cur *cur,
 		xfs_agblock_t bno, int *stat);
 extern int xfs_refcount_lookup_ge(struct xfs_btree_cur *cur,
 		xfs_agblock_t bno, int *stat);
+union xfs_btree_rec;
+extern void xfs_refcount_btrec_to_irec(union xfs_btree_rec *rec,
+		struct xfs_refcount_irec *irec);
 extern int xfs_refcount_get_rec(struct xfs_btree_cur *cur,
 		struct xfs_refcount_irec *irec, int *stat);
 
@@ -57,5 +60,12 @@ extern int xfs_refcount_finish_one(struct xfs_trans *tp,
 extern int xfs_refcount_find_shared(struct xfs_btree_cur *cur,
 		xfs_agblock_t agbno, xfs_extlen_t aglen, xfs_agblock_t *fbno,
 		xfs_extlen_t *flen, bool find_maximal);
+
+extern int xfs_refcount_alloc_cow_extent(struct xfs_mount *mp,
+		struct xfs_defer_ops *dfops, xfs_fsblock_t fsb,
+		xfs_extlen_t len);
+extern int xfs_refcount_free_cow_extent(struct xfs_mount *mp,
+		struct xfs_defer_ops *dfops, xfs_fsblock_t fsb,
+		xfs_extlen_t len);
 
 #endif	/* __XFS_REFCOUNT_H__ */
