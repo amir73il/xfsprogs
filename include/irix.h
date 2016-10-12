@@ -454,6 +454,9 @@ struct fsxattr {
 
 #endif
 
+#ifndef FS_XFLAG_COWEXTSIZE
+#define FS_XFLAG_COWEXTSIZE	0x00010000	/* CoW extent size allocator hint */
+#endif
 
 /**
  * Abstraction of mountpoints.
