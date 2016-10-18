@@ -515,7 +515,6 @@ xfs_iread(
 	}
 
 	ASSERT(ip->i_d.di_version >= 2);
-
 	ip->i_delayed_blks = 0;
 
 	/*
