@@ -1579,7 +1579,6 @@ xfs_alloc_ag_vextent_small(
 	int		*stat)	/* status: 0-freelist, 1-normal/none */
 {
 	struct xfs_owner_info	oinfo;
-	struct xfs_perag	*pag;
 	int		error;
 	xfs_agblock_t	fbno;
 	xfs_extlen_t	flen;
@@ -1633,8 +1632,6 @@ xfs_alloc_ag_vextent_small(
 					fbno, 1, &oinfo);
 			if (error)
 				goto error0;
-			pag = xfs_perag_get(args->mp, args->agno);
-			xfs_perag_put(pag);
 
 			*stat = 0;
 			return 0;
